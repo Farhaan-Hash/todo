@@ -1,0 +1,42 @@
+name: "Node.js CI"
+
+on: pull_request
+
+jobs:
+  node-18:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          always-auth: false
+      - name: npm install
+        run: npm install
+      - name: tests
+        run: npm test
+
+  node-17:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [17.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          always-auth: false
+      - name: npm install
+        run: npm install
+      - name: tests
+        run: npm test
